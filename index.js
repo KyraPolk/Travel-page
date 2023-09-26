@@ -20,7 +20,33 @@ const init = async()=> {
   await client.connect();
   console.log('connected to database');
   const SQL = `
-    SQL SETUP AND SEED
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS countries;
+    DROP TABLE IF EXISTS vacations;
+    CREATE TABLE users(
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100)
+    );
+    CREATE TABLE countries(
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100)
+    );
+    CREATE TABLE vacations(
+      id SERIAL PRIMARY KEY,
+      country_id INTEGER REFERENCES countries(id) NOT NULL,
+      user_id INTEGER REFERENCES users(id) NOT NULL,
+      created_at TIMESTAMP DEFAULT now()
+    );
+    INSERT INTO users(name) VALUES ('Kyra');
+    INSERT INTO users(name) VALUES ('Jordan');
+    INSERT INTO users(name) VALUES ('Aiesha');
+    INSERT INTO users(name) VALUES ('Kyla');
+    INSERT INTO users(name) VALUES ('Laura');
+    INSERT INTO countries(name) VALUES ('Iceland');
+    INSERT INTO countries(name) VALUES ('France');
+    INSERT INTO countries(name) VALUES ('Costa Rica');
+    INSERT INTO countries(name) VALUES ('Austrailia');
+    INSERT INTO countries(name) VALUES ('Thailand');
   `;
   console.log('create your tables and seed data');
 
